@@ -1,0 +1,54 @@
+-- 
+    -- Uncomment me if you want :)
+    -- CREATE DATABASE Floristería;
+DROP
+    DATABASE IF EXISTS floristeríadb;
+CREATE DATABASE floristeríadb CHARACTER SET utf8mb4; USE
+    floristeríadb;
+CREATE TABLE Compra(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dateC DATE NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Producte(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    designacio VARCHAR(120) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Arbre(
+    id INT UNSIGNED PRIMARY KEY,
+    alcada REAL NOT NULL,
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Flor(
+    id INT UNSIGNED PRIMARY KEY,
+    color VARCHAR(40) NOT NULL,
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Decoracio(
+    id INT UNSIGNED PRIMARY KEY,
+    material ENUM('fusta', 'plàstic') NOT NULL,
+    FOREIGN KEY(id) REFERENCES Producte(id)
+); CREATE TABLE Venda(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    dateV DATE NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE Floristeria(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(40) NOT NULL,
+    INDEX ind(id)
+); CREATE TABLE LiniaCompra(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    preu REAL NOT NULL,
+    producteId INT UNSIGNED NOT NULL,
+    floresteriaId INT UNSIGNED NOT NULL,
+    compraId INT UNSIGNED NOT NULL,
+    FOREIGN KEY(compraId) REFERENCES Compra(id),
+    FOREIGN KEY(producteId) REFERENCES Producte(id),
+    FOREIGN KEY(floresteriaId) REFERENCES Floristeria(id)
+); CREATE TABLE LiniaVenda(
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    preu REAL NOT NULL,
+    producteId INT UNSIGNED NOT NULL,
+    vendaId INT UNSIGNED NOT NULL,
+    floresteriaId INT UNSIGNED NOT NULL,
+    FOREIGN KEY(vendaId) REFERENCES Venda(id),
+    FOREIGN KEY(producteId) REFERENCES Producte(id),
+    FOREIGN KEY(floresteriaId) REFERENCES Floristeria(id)
+);
