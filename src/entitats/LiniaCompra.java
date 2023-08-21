@@ -8,7 +8,6 @@ public class LiniaCompra {
 	private int producteId;
 
 	public LiniaCompra() {
-		super();
 	}
 
 	public int getId() {
