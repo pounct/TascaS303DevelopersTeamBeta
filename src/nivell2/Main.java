@@ -33,7 +33,7 @@ public class Main {
 		// Afegir Decoració.
 		// les entrades provenen de les compres
 		Compra compra1= new Compra();
-		compra1.setDate(Date.valueOf("2022-09-04"));
+		compra1.setDate(Date.valueOf("2022-10-24"));
 		
 		// Crear compra1 en la base de datos.
 		sorm.addCompra(compra1);
@@ -41,29 +41,31 @@ public class Main {
 		// Afegir Arbre.
 		// afegir una línia de compra Arbre 
 		Arbre pArbre1=new Arbre();
-		pArbre1.setDesignacio("prod Arbre1");
-		pArbre1.setAlcada(120);		
+		pArbre1.setDesignacio("prod Arbre3");
+		pArbre1.setAlcada(90);		
 		// Crear pArbre1 en la base de datos.
 		sorm.addProducte(pArbre1);		
 		// Crear una lineaCompra de compra1  en la base de datos.		
 		// addLineaCompra(Compra c,Producte p,double preu)
-		sorm.addLineaCompra(compra1,pArbre1,25);
+		sorm.addLineaCompra(compra1,pArbre1,21);
 		
 		// Afegir Flor.
 		// afegir una línia de compra Flor
 		Flor pFlor1=new Flor();
-		pFlor1.setColor("rosa");
-		pFlor1.setDesignacio("prodFlor1");
+		pFlor1.setColor("rojo");
+		pFlor1.setDesignacio("prodFlor3");
 		// Crear pFlor1 en la base de datos.
 		sorm.addProducte(pFlor1);
-		sorm.addLineaCompra(compra1,pFlor1,15);
+		sorm.addLineaCompra(compra1,pFlor1,12);
 		
 		// Afegir Decoració.
 		// afegir una línia de compra Decoració
-		Decoracio decoracio1 = new Decoracio();
-		decoracio1.setDesignacio("prodDecoracio1");
-		decoracio1.setMaterial(Material.FUSTA);
-		//sorm.addProducte(pDecoracio1);
+		Decoracio pDecoracio1 = new Decoracio();
+		pDecoracio1.setDesignacio("prodDecoracio3");
+		pDecoracio1.setMaterial(Material.PLASTIC);
+		sorm.addProducte(pDecoracio1);
+		// Crear una lineaCompra de compra1  en la base de datos.
+		sorm.addLineaCompra(compra1,pDecoracio1,28);
 
 	}
 
