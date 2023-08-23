@@ -2,9 +2,18 @@ package entitats;
 
 public class Arbre extends Producte {
 
+	private int id;
 	private float alcada; // alçada
 
 	public Arbre() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public float getAlcada() {

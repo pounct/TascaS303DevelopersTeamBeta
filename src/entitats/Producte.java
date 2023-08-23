@@ -1,6 +1,7 @@
 package entitats;
 
 public abstract class Producte {
+	
 	protected int id;
 	protected String designacio;
 

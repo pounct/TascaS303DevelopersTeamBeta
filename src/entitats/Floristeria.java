@@ -6,6 +6,7 @@ public class Floristeria {
 	private String nom;
 
 	public Floristeria() {
+		super();
 	}
 
 	public int getId() {

@@ -2,6 +2,8 @@ package entitats;
 
 public class Decoracio extends Producte {
 
+	private int id;
+
 	public enum Material {
 		FUSTA, PLASTIC
 	}
@@ -9,6 +11,14 @@ public class Decoracio extends Producte {
 	private Material material;
 
 	public Decoracio() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Material getMaterial() {
