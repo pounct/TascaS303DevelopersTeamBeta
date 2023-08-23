@@ -3,25 +3,25 @@ package nivell1;
 import java.util.ArrayList;
 import java.util.List;
 
+import entitats.Producte;
+import entitats.Arbre;
+import entitats.Decoracio;
+import entitats.Flor;
+
 public class Stock {
 
-	//private List<Producte> productes=new ArrayList<Producte>();
+	private static List<Producte> productes = new ArrayList<Producte>();
 
-	private List<Arbre> arbres = new ArrayList<Arbre>();
+	private static List<Arbre> arbres = new ArrayList<Arbre>();
+	private static List<Flor> flors = new ArrayList<Flor>();
+	private static List<Decoracio> decoracions = new ArrayList<Decoracio>();
 
-	private List<Flor> flors = new ArrayList<Flor>();
-
-	private List<Decoracio> decoracio = new ArrayList<Decoracio>();
-
-	public Stock() {
-		
+	public static List<Producte> getProductes() {
+		return productes;
 	}
 
-	public Stock(List<Arbre> arbres, List<Flor> flors, List<Decoracio> decoracio) {
-		
-		this.arbres = arbres;
-		this.flors = flors;
-		this.decoracio = decoracio;
+	public void setProductes(List<Producte> productes) {
+		Stock.productes = productes;
 	}
 
 	public List<Arbre> getArbres() {
@@ -29,7 +29,7 @@ public class Stock {
 	}
 
 	public void setArbres(List<Arbre> arbres) {
-		this.arbres = arbres;
+		Stock.arbres = arbres;
 	}
 
 	public List<Flor> getFlors() {
@@ -37,26 +37,15 @@ public class Stock {
 	}
 
 	public void setFlors(List<Flor> flors) {
-		this.flors = flors;
+		Stock.flors = flors;
 	}
 
-	public List<Decoracio> getDecoracio() {
-		return decoracio;
+	public List<Decoracio> getDecoracions() {
+		return decoracions;
 	}
 
-	public void setDecoracio(List<Decoracio> decoracio) {
-		this.decoracio = decoracio;
+	public void setDecoracions(List<Decoracio> decoracions) {
+		Stock.decoracions = decoracions;
 	}
-	
-	
-	public List<Producte> getProductes() {
-		List<Producte> productes=new ArrayList<Producte>();
-		productes.addAll(arbres);
-		productes.addAll(flors);
-		productes.addAll(decoracio);
-		return productes;
-	}
-	
-	
 
 }

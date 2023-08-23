@@ -1,54 +1,124 @@
 package nivell1;
 
+import java.util.List;
+
+import entitats.Producte;
+
 public class Main {
 
 	public static void main(String[] args) {
+		
+		// funcionalitats:
 
-		//Crear Floristeria.
-		Floristeria floristeria= new Floristeria("floristeria 1");
+		// 1.Crear Floristeria.
+		crearFloristeria();
+
 		// Afegir Arbre.
-		Arbre arbre1 = new Arbre(0, 0, 0);
-		Arbre arbre2 = new Arbre(1, 2, 3);
-		floristeria.addToList(floristeria.getArbres(), arbre1);
+		afegirArbre();
+
 		// Afegir Flor.
-		Flor flor1= new Flor(null, 6, 3, null);
-		floristeria.addToList(floristeria.getFlors(), flor1);
+		afegirFlor();
+
 		// Afegir Decoració.
-		Decoracio decoracio1= new Decoracio( null, 2, 0, Decoracio.Material.PLASTIC);
-		Decoracio decoracio2= new Decoracio(null, 2, 0, Decoracio.Material.FUSTA);
-		floristeria.addToList(floristeria.getDecoracio(), decoracio1);
+		afegirDecoracio();
 		
 		//Stock: Imprimeix per pantalla tots els arbres, flors i decoració que té la floristeria.
-		floristeria.getProductes();
-		
+		imprimirStock(Stock.getProductes());
 		
 		// Retirar arbre.
-		floristeria.removeFromList(floristeria.getArbres(), arbre1);
+		retirarArbre();
+
 		// Retirar flor.
-		floristeria.removeFromList(floristeria.getFlors(), flor1);
-		// Retirar decoració.
-		floristeria.removeFromList(floristeria.getDecoracio(), decoracio1);
+		retirarFlor();
 		
+		// Retirar decoració.
+		retirarDecoracio();
+
 		// Printar per pantalla stock amb quantitats.
-		floristeria.stockAmbQuantitats();
+		imprimirStockQuantitats(Stock.getProductes());
+		
 		
 		
 		// Printar per pantalla valor total de la floristeria.
-		floristeria.valorTotalStock();
+		imprimirValorStock(Stock.getProductes());
+		
 				
 		// Crear tickets de compra amb múltiples objectes.
-		Compra compra1=new Compra();
-		compra1.addArbre(arbre1);
-		compra1.addArbre(arbre2);
-		compra1.addFlor(flor1);
-		compra1.addDecoracio(decoracio1);
-		compra1.addDecoracio(decoracio2);
-		System.out.println(compra1);
+		ticketsCompra();
 		
 		// Mostrar una llista de compres antigues.
+		mostrarCompres();
 		
-		// Visualitzar el total de diners guanyats amb totes les vendes.
+		// Visualitzar el total de diners guanyats amb totes les vendes.*/
+		visualitzarTotalVendes();
 		
+	}
+
+	private static void visualitzarTotalVendes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void mostrarCompres() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void ticketsCompra() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void imprimirValorStock(List<Producte> productes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void imprimirStockQuantitats(List<Producte> productes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	private static void retirarDecoracio() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void retirarFlor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void retirarArbre() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void imprimirStock(List<Producte> productes) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void afegirDecoracio() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void afegirFlor() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void afegirArbre() {
+		//compraId =0
+		// liniaId =0
+		
+	}
+
+	public static void crearFloristeria() {
+		// TODO Auto-generated method stub
 		
 	}
 
