@@ -86,6 +86,7 @@ public class Persistencia {
 			break;
 
 		default:
+System.out.println("error en nom de classe");
 			break;
 		}
 		return null;
@@ -111,14 +112,17 @@ public class Persistencia {
 
 		String fitxer = "\\src\\nivell1\\database\\ProducteData.txt";
 		saveData(productes, fitxer);
+  
 	}
 
 	public void saveArbres() {
-
+   String fitxer = "\\src\\nivell1\\database\\ArbreData.txt";
+		saveData(arbres, fitxer);
 	}
 
 	public void saveFlors() {
-
+String fitxer = "\\src\\nivell1\\database\\FlorData.txt";
+		saveData(flors, fitxer);
 	}
 
 	public void getArbres() {
@@ -134,6 +138,8 @@ public class Persistencia {
 	}
 
 	public void saveDecoracions() {
+String fitxer = "\\src\\nivell1\\database\\DecoracioData.txt";
+		saveData(decoracions, fitxer);
 
 	}
 
@@ -142,6 +148,8 @@ public class Persistencia {
 	}
 
 	public void saveCompres() {
+String fitxer = "\\src\\nivell1\\database\\CompraData.txt";
+		saveData(compres, fitxer);
 
 	}
 
@@ -150,7 +158,8 @@ public class Persistencia {
 	}
 
 	public void saveVendes() {
-
+String fitxer = "\\src\\nivell1\\database\\VendaData.txt";
+		saveData(vendes, fitxer);
 	}
 
 	public void getLiniesCompres() {
@@ -158,6 +167,8 @@ public class Persistencia {
 	}
 
 	public void saveLiniesCompres() {
+String fitxer = "\\src\\nivell1\\database\\LiniaCompraData.txt";
+		saveData(LiniesCompres, fitxer);
 
 	}
 
@@ -166,7 +177,8 @@ public class Persistencia {
 	}
 
 	public void saveLiniesVendes() {
-
+String fitxer = "\\src\\nivell1\\database\\LiniaVendaData.txt";
+		saveData(liniesVendes, fitxer);
 	}
 
 	public void getFloristeria() {
