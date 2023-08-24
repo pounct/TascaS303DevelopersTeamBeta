@@ -1,7 +1,12 @@
 package nivell1;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import entitats.Arbre;
+import entitats.Decoracio;
+import entitats.Decoracio.Material;
+import entitats.Flor;
 import entitats.Floristeria;
 import entitats.Producte;
 
@@ -15,22 +20,85 @@ public class Persistencia {
 
 	}
 
-	public <T> ArrayList<T>  getData(T elem, String fitxer) {
+	public <T> ArrayList<T> getData(String nomClasse, String fitxer) {
+
 		ArrayList<T> elements = new ArrayList<>();
-		ArrayList<String> Linies = new ArrayList<>();		
+		ArrayList<String> Linies = new ArrayList<>();
 		Linies = ServeisData.readLinies(fitxer);
-		Linies.forEach(l -> {
-			//elements.add(elem.stringTo(l));
-		});
+		elements = stringToClasse(Linies, nomClasse);
+
 		return elements;
-		
+
 	}
 
-	/*public ArrayList<Producte> getProductes() {
-		Producte p = new Producte();
-		 getData(new Producte(), String fitxer)
+	public <T> ArrayList<T> stringToClasse(ArrayList<String> linies, String nomClasse) {
 
-	}*/
+		switch (nomClasse) {
+		case "Arbre":
+			ArrayList<Arbre> arbres = new ArrayList<>();
+			Arbre arbre = new Arbre();
+			for (String linia : linies) {
+				String[] campos = linia.split(" ");
+				arbre.setId(Integer.parseInt(campos[0]));
+				arbre.setAlcada(Float.parseFloat(campos[1]));
+				arbres.add(arbre);
+			}
+			return (ArrayList<T>) arbres;
+		case "Flor":
+			ArrayList<Flor> flors = new ArrayList<>();
+			Flor flor = new Flor();
+			for (String linia : linies) {
+				String[] campos = linia.split(" ");
+				flor.setId(Integer.parseInt(campos[0]));
+				flor.setColor(campos[1]);
+				flors.add(flor);
+			}
+			return (ArrayList<T>) flors;
+		case "Decoracio":
+			ArrayList<Decoracio> decoracions = new ArrayList<>();
+			Decoracio decoracio = new Decoracio();
+			for (String linia : linies) {
+				String[] campos = linia.split(" ");
+				Material material;
+				if (campos[1].toLowerCase().equals("plastic"))
+					material = Material.PLASTIC;
+				else material = Material.FUSTA;
+
+				decoracio.setId(Integer.parseInt(campos[0]));
+				decoracio.setMaterial(material);
+				decoracions.add(decoracio);
+			}
+			return (ArrayList<T>) decoracions;
+		case "LiniaCompra":
+
+			break;
+		case "LiniaVenda":
+
+			break;
+		case "Compra":
+
+			break;
+		case "Venda":
+
+			break;
+		case "Floristeria":
+
+			break;
+
+		default:
+			break;
+		}
+		return null;
+	}
+
+	// ArrayList<T>
+
+	/*
+	 * public ArrayList<Producte> getProductes() { Producte p = new Producte();
+	 * getData(new Producte(), String fitxer)
+	 * 
+	 * }
+	 */
 
 	public <T> void saveData(ArrayList<T> elements, String fitxer) {
 
