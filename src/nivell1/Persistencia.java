@@ -4,11 +4,15 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import entitats.Arbre;
+import entitats.Compra;
 import entitats.Decoracio;
 import entitats.Decoracio.Material;
 import entitats.Flor;
 import entitats.Floristeria;
+import entitats.LiniaCompra;
+import entitats.LiniaVenda;
 import entitats.Producte;
+import entitats.Venda;
 
 public class Persistencia {
 
@@ -34,6 +38,8 @@ public class Persistencia {
 	public <T> ArrayList<T> stringToClasse(ArrayList<String> linies, String nomClasse) {
 
 		switch (nomClasse) {
+		case "Producte":
+			return (ArrayList<T>) stringToProductes(linies);
 		case "Arbre":
 			ArrayList<Arbre> arbres = new ArrayList<>();
 			Arbre arbre = new Arbre();
@@ -62,7 +68,8 @@ public class Persistencia {
 				Material material;
 				if (campos[1].toLowerCase().equals("plastic"))
 					material = Material.PLASTIC;
-				else material = Material.FUSTA;
+				else
+					material = Material.FUSTA;
 
 				decoracio.setId(Integer.parseInt(campos[0]));
 				decoracio.setMaterial(material);
@@ -86,10 +93,24 @@ public class Persistencia {
 			break;
 
 		default:
-System.out.println("error en nom de classe");
+			System.out.println("error en nom de classe");
 			break;
 		}
 		return null;
+	}
+
+	public ArrayList<Producte> stringToProductes(ArrayList<String> linies) {
+		
+		ArrayList<Producte> productes = new ArrayList<>();
+		Producte producte = new Producte();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			producte.setId(Integer.parseInt(campos[0]));
+			producte.setDesignacio(campos[1]);
+			productes.add(producte);
+		}
+		return productes;
+		
 	}
 
 	// ArrayList<T>
@@ -104,7 +125,7 @@ System.out.println("error en nom de classe");
 	public <T> void saveData(ArrayList<T> elements, String fitxer) {
 
 		ArrayList<String> Linies = new ArrayList<>();
-		elements.forEach(p -> Linies.add(p.toString()));
+		elements.forEach((element) -> Linies.add(element.toString()));
 		ServeisData.writeLinies(Linies, fitxer);
 	}
 
@@ -112,17 +133,54 @@ System.out.println("error en nom de classe");
 
 		String fitxer = "\\src\\nivell1\\database\\ProducteData.txt";
 		saveData(productes, fitxer);
-  
+
 	}
 
-	public void saveArbres() {
-   String fitxer = "\\src\\nivell1\\database\\ArbreData.txt";
+	public void saveArbres(ArrayList<Arbre> arbres) {
+		String fitxer = "\\src\\nivell1\\database\\ArbreData.txt";
 		saveData(arbres, fitxer);
 	}
 
-	public void saveFlors() {
-String fitxer = "\\src\\nivell1\\database\\FlorData.txt";
+	public void saveFlors(ArrayList<Flor> flors) {
+		String fitxer = "\\src\\nivell1\\database\\FlorData.txt";
 		saveData(flors, fitxer);
+	}
+
+	public void saveDecoracions(ArrayList<Decoracio> decoracions) {
+		String fitxer = "\\src\\nivell1\\database\\DecoracioData.txt";
+		saveData(decoracions, fitxer);
+
+	}
+
+	public void saveCompres(ArrayList<Compra> compres) {
+		String fitxer = "\\src\\nivell1\\database\\CompraData.txt";
+		saveData(compres, fitxer);
+
+	}
+
+	public void saveVendes(ArrayList<Venda> vendes) {
+		String fitxer = "\\src\\nivell1\\database\\VendaData.txt";
+		saveData(vendes, fitxer);
+	}
+
+	public void saveLiniesCompres(ArrayList<LiniaCompra> LiniesCompres) {
+		String fitxer = "\\src\\nivell1\\database\\LiniaCompraData.txt";
+		saveData(LiniesCompres, fitxer);
+
+	}
+
+	public static void saveFloristeria(Floristeria floristeria) {
+
+		String fitxer = ".\\src\\nivell1\\database\\FloristeriaData.txt";
+		String linia = floristeria.toString();
+
+		ServeisData.writeLinia(linia, fitxer);
+
+	}
+
+	public void saveLiniesVendes(ArrayList<LiniaVenda> liniesVendes) {
+		String fitxer = "\\src\\nivell1\\database\\LiniaVendaData.txt";
+		saveData(liniesVendes, fitxer);
 	}
 
 	public void getArbres() {
@@ -137,19 +195,7 @@ String fitxer = "\\src\\nivell1\\database\\FlorData.txt";
 
 	}
 
-	public void saveDecoracions() {
-String fitxer = "\\src\\nivell1\\database\\DecoracioData.txt";
-		saveData(decoracions, fitxer);
-
-	}
-
 	public void getCompres() {
-
-	}
-
-	public void saveCompres() {
-String fitxer = "\\src\\nivell1\\database\\CompraData.txt";
-		saveData(compres, fitxer);
 
 	}
 
@@ -157,18 +203,7 @@ String fitxer = "\\src\\nivell1\\database\\CompraData.txt";
 
 	}
 
-	public void saveVendes() {
-String fitxer = "\\src\\nivell1\\database\\VendaData.txt";
-		saveData(vendes, fitxer);
-	}
-
 	public void getLiniesCompres() {
-
-	}
-
-	public void saveLiniesCompres() {
-String fitxer = "\\src\\nivell1\\database\\LiniaCompraData.txt";
-		saveData(LiniesCompres, fitxer);
 
 	}
 
@@ -176,21 +211,7 @@ String fitxer = "\\src\\nivell1\\database\\LiniaCompraData.txt";
 
 	}
 
-	public void saveLiniesVendes() {
-String fitxer = "\\src\\nivell1\\database\\LiniaVendaData.txt";
-		saveData(liniesVendes, fitxer);
-	}
-
 	public void getFloristeria() {
-
-	}
-
-	public static void saveFloristeria(Floristeria floristeria) {
-
-		String fitxer = ".\\src\\nivell1\\database\\FloristeriaData.txt";
-		String linia = floristeria.toString();
-
-		ServeisData.writeLinia(linia, fitxer);
 
 	}
 
