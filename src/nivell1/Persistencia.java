@@ -1,6 +1,7 @@
 package nivell1;
 
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import entitats.Arbre;
@@ -41,56 +42,26 @@ public class Persistencia {
 		case "Producte":
 			return (ArrayList<T>) stringToProductes(linies);
 		case "Arbre":
-			ArrayList<Arbre> arbres = new ArrayList<>();
-			Arbre arbre = new Arbre();
-			for (String linia : linies) {
-				String[] campos = linia.split(" ");
-				arbre.setId(Integer.parseInt(campos[0]));
-				arbre.setAlcada(Float.parseFloat(campos[1]));
-				arbres.add(arbre);
-			}
-			return (ArrayList<T>) arbres;
+			return (ArrayList<T>) stringToArbres(linies);
 		case "Flor":
-			ArrayList<Flor> flors = new ArrayList<>();
-			Flor flor = new Flor();
-			for (String linia : linies) {
-				String[] campos = linia.split(" ");
-				flor.setId(Integer.parseInt(campos[0]));
-				flor.setColor(campos[1]);
-				flors.add(flor);
-			}
-			return (ArrayList<T>) flors;
+			return (ArrayList<T>) stringToFlors(linies);
 		case "Decoracio":
-			ArrayList<Decoracio> decoracions = new ArrayList<>();
-			Decoracio decoracio = new Decoracio();
-			for (String linia : linies) {
-				String[] campos = linia.split(" ");
-				Material material;
-				if (campos[1].toLowerCase().equals("plastic"))
-					material = Material.PLASTIC;
-				else
-					material = Material.FUSTA;
-
-				decoracio.setId(Integer.parseInt(campos[0]));
-				decoracio.setMaterial(material);
-				decoracions.add(decoracio);
-			}
-			return (ArrayList<T>) decoracions;
+			return (ArrayList<T>) stringToDecoracions(linies);
 		case "LiniaCompra":
 
-			break;
+			return (ArrayList<T>) stringToLiniesCompres(linies);
 		case "LiniaVenda":
 
-			break;
+			return (ArrayList<T>) stringToLiniesVendes(linies);
 		case "Compra":
 
-			break;
+			return (ArrayList<T>) stringToCompres(linies);
 		case "Venda":
 
-			break;
+			return (ArrayList<T>) stringToVendes(linies);
 		case "Floristeria":
 
-			break;
+			return (ArrayList<T>) stringToFloristeries(linies);
 
 		default:
 			System.out.println("error en nom de classe");
@@ -100,7 +71,7 @@ public class Persistencia {
 	}
 
 	public ArrayList<Producte> stringToProductes(ArrayList<String> linies) {
-		
+
 		ArrayList<Producte> productes = new ArrayList<>();
 		Producte producte = new Producte();
 		for (String linia : linies) {
@@ -110,7 +81,120 @@ public class Persistencia {
 			productes.add(producte);
 		}
 		return productes;
-		
+
+	}
+
+	public ArrayList<Arbre> stringToArbres(ArrayList<String> linies) {
+
+		ArrayList<Arbre> arbres = new ArrayList<>();
+		Arbre arbre = new Arbre();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			arbre.setId(Integer.parseInt(campos[0]));
+			arbre.setAlcada(Float.parseFloat(campos[1]));
+			arbres.add(arbre);
+		}
+		return arbres;
+
+	}
+
+	public ArrayList<Flor> stringToFlors(ArrayList<String> linies) {
+		ArrayList<Flor> flors = new ArrayList<>();
+		Flor flor = new Flor();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			flor.setId(Integer.parseInt(campos[0]));
+			flor.setColor(campos[1]);
+			flors.add(flor);
+		}
+		return flors;
+	}
+
+	public ArrayList<Decoracio> stringToDecoracions(ArrayList<String> linies) {
+		ArrayList<Decoracio> decoracions = new ArrayList<>();
+		Decoracio decoracio = new Decoracio();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			Material material;
+			if (campos[1].toLowerCase().equals("plastic"))
+				material = Material.PLASTIC;
+			else
+				material = Material.FUSTA;
+
+			decoracio.setId(Integer.parseInt(campos[0]));
+			decoracio.setMaterial(material);
+			decoracions.add(decoracio);
+		}
+		return decoracions;
+	}
+
+	public ArrayList<LiniaCompra> stringToLiniesCompres(ArrayList<String> linies) {
+		ArrayList<LiniaCompra> liniesCompres = new ArrayList<>();
+		LiniaCompra liniaCompra = new LiniaCompra();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			liniaCompra.setId(Integer.parseInt(campos[0]));
+			liniaCompra.setCompraId(Integer.parseInt(campos[1]));
+			liniaCompra.setProducteId(Integer.parseInt(campos[2]));
+			liniaCompra.setPreu(Double.parseDouble(campos[3]));
+			liniesCompres.add(liniaCompra);
+		}
+		return liniesCompres;
+	}
+
+	public ArrayList<LiniaVenda> stringToLiniesVendes(ArrayList<String> linies) {
+		ArrayList<LiniaVenda> liniesVendes = new ArrayList<>();
+		LiniaVenda liniaVenda = new LiniaVenda();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			liniaVenda.setId(Integer.parseInt(campos[0]));
+			liniaVenda.setVendaId(Integer.parseInt(campos[1]));
+			liniaVenda.setProducteId(Integer.parseInt(campos[2]));
+			liniaVenda.setPreu(Double.parseDouble(campos[3]));
+			liniesVendes.add(liniaVenda);
+		}
+		return liniesVendes;
+
+	}
+
+	public ArrayList<Compra> stringToCompres(ArrayList<String> linies) {
+		ArrayList<Compra> compres = new ArrayList<>();
+		Compra compra = new Compra();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			compra.setId(Integer.parseInt(campos[0]));
+			compra.setDate(Date.valueOf(campos[1]));
+			compres.add(compra);
+		}
+		return compres;
+
+	}
+
+	public ArrayList<Venda> stringToVendes(ArrayList<String> linies) {
+
+		ArrayList<Venda> vendes = new ArrayList<>();
+		Venda venda = new Venda();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			venda.setId(Integer.parseInt(campos[0]));
+			venda.setDate(Date.valueOf(campos[1]));
+			vendes.add(venda);
+		}
+		return vendes;
+
+	}
+
+	public ArrayList<Floristeria> stringToFloristeries(ArrayList<String> linies) {
+		ArrayList<Floristeria> floristeries = new ArrayList<>();
+		Floristeria floristeria = new Floristeria();
+		for (String linia : linies) {
+			String[] campos = linia.split(" ");
+			floristeria.setId(Integer.parseInt(campos[0]));
+			floristeria.setNom(campos[1]);
+			floristeries.add(floristeria);
+		}
+		return floristeries;
+
 	}
 
 	// ArrayList<T>
@@ -171,7 +255,7 @@ public class Persistencia {
 
 	public static void saveFloristeria(Floristeria floristeria) {
 
-		String fitxer = ".\\src\\nivell1\\database\\FloristeriaData.txt";
+		String fitxer = "data_txt\\FloristeriaData.txt";
 		String linia = floristeria.toString();
 
 		ServeisData.writeLinia(linia, fitxer);
@@ -179,7 +263,7 @@ public class Persistencia {
 	}
 
 	public void saveLiniesVendes(ArrayList<LiniaVenda> liniesVendes) {
-		String fitxer = "\\src\\nivell1\\database\\LiniaVendaData.txt";
+		String fitxer = "data_txt\\LiniaVendaData.txt";
 		saveData(liniesVendes, fitxer);
 	}
 
