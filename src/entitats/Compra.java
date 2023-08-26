@@ -26,4 +26,9 @@ public class Compra {
 		this.date = date;
 	}
 
+	@Override
+	public String toString() {
+		return id + " " + date;
+	}
+
 }

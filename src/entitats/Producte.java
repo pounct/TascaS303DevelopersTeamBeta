@@ -1,6 +1,6 @@
 package entitats;
 
-public abstract class Producte {
+public class Producte {
 	
 	protected int id;
 	protected String designacio;
@@ -23,5 +23,12 @@ public abstract class Producte {
 	public void setDesignacio(String designacio) {
 		this.designacio = designacio;
 	}
+
+	@Override
+	public String toString() {
+		return id + " " + designacio;
+	}
+	
+	
 
 }

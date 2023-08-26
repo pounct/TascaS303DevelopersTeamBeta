@@ -3,9 +3,9 @@ package entitats;
 public class LiniaCompra {
 
 	private int id;
-	private double preu;
 	private int compraId;
 	private int producteId;
+	private double preu;
 
 	public LiniaCompra() {
 	}
@@ -40,6 +40,11 @@ public class LiniaCompra {
 
 	public void setProducteId(int producteId) {
 		this.producteId = producteId;
+	}
+
+	@Override
+	public String toString() {
+		return id + " " + compraId + " " + producteId + " " + preu;
 	}
 
 }

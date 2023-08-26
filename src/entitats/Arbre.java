@@ -23,4 +23,10 @@ public class Arbre extends Producte {
 	public void setAlcada(float alcada) {
 		this.alcada = alcada;
 	}
+
+	@Override
+	public String toString() {
+		return id + " " + designacio + " " + alcada;
+	}
+
 }
