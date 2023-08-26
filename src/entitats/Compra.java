@@ -28,7 +28,7 @@ public class Compra {
 
 	@Override
 	public String toString() {
-		return id + " " + date;
+		return id + "\t" + date;
 	}
 
 }

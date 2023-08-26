@@ -44,7 +44,7 @@ public class LiniaCompra {
 
 	@Override
 	public String toString() {
-		return id + " " + compraId + " " + producteId + " " + preu;
+		return id + "\t" + compraId + "\t" + producteId + "\t" + preu;
 	}
 
 }

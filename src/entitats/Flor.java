@@ -27,6 +27,6 @@ public class Flor extends Producte {
 
 	@Override
 	public String toString() {
-		return id + " " + designacio + " " + color;
+		return id + "\t" + designacio + "\t" + color;
 	}
 }

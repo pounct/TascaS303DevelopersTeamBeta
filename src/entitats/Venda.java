@@ -28,6 +28,6 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return id + " " + date;
+		return id + "\t" + date;
 	}
 }

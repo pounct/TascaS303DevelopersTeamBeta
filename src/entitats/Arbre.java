@@ -26,7 +26,7 @@ public class Arbre extends Producte {
 
 	@Override
 	public String toString() {
-		return id + " " + designacio + " " + alcada;
+		return id + "\t" + designacio + "\t" + alcada;
 	}
 
 }

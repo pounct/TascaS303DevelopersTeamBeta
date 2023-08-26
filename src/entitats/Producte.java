@@ -26,7 +26,7 @@ public class Producte {
 
 	@Override
 	public String toString() {
-		return id + " " + designacio;
+		return id + "\t" + designacio;
 	}
 	
 	
