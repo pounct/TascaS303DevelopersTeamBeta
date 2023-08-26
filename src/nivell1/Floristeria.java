@@ -3,27 +3,24 @@ package nivell1;
 import java.util.ArrayList;
 import java.util.List;
 
+import entitats.Arbre;
+import entitats.Compra;
+import entitats.Decoracio;
+import entitats.Flor;
+import entitats.Venda;
+
 public class Floristeria {
 
 	private String nom;
 
-	// private List<Producte> productes=new ArrayList<Producte>();
-
-	private Stock stock= new Stock();;
-
-	private List<Arbre> arbres = new ArrayList<Arbre>();
-
-	private List<Flor> flors = new ArrayList<Flor>();
-
-	private List<Decoracio> decoracio = new ArrayList<Decoracio>();
+	private List<Arbre> arbres =Stock.getArbres();
+	private List<Flor> flors = Stock.getFlors();
+	private List<Decoracio> decoracio = Stock.getDecoracions();
 
 	private List<Compra> compres = new ArrayList<Compra>();
-
 	private List<Venda> vendes = new ArrayList<Venda>();
 
-	public Floristeria(String nom) {
-
-		this.setNom(nom);
+	public Floristeria() {
 	}
 
 	public String getNom() {
@@ -34,24 +31,20 @@ public class Floristeria {
 		this.nom = nom;
 	}
 
-	public <T> void addToList(List<T> list, T o) {
-		list.add(o);
+	public List<Arbre> getArbres() {
+		return arbres;
 	}
 
-	public <T> void removeFromList(List<T> list, T o) {
-		list.remove(o);
-	}
-
-	public <T> void imprimirList(List<T> list) {
-		list.forEach(System.out::println);
+	public void setArbres(List<Arbre> arbres) {
+		this.arbres = arbres;
 	}
 
 	public List<Flor> getFlors() {
 		return flors;
 	}
 
-	public List<Arbre> getArbres() {
-		return arbres;
+	public void setFlors(List<Flor> flors) {
+		this.flors = flors;
 	}
 
 	public List<Decoracio> getDecoracio() {
@@ -61,15 +54,6 @@ public class Floristeria {
 	public void setDecoracio(List<Decoracio> decoracio) {
 		this.decoracio = decoracio;
 	}
-
-	/*"""
-	public void stock() {
-
-		// Imprimeix per pantalla tots els arbres, flors i decoració que té la
-		// floristeria.
-
-	}
-	"""*/
 
 	public List<Compra> getCompres() {
 		return compres;
@@ -86,18 +70,7 @@ public class Floristeria {
 	public void setVendes(List<Venda> vendes) {
 		this.vendes = vendes;
 	}
-
-	public List<Producte> getProductes() {
-
-		return stock.getProductes();
-	}
-
-	public void stockAmbQuantitats() {
-
-	}
-
-	public void valorTotalStock() {
-
-	}
+	
+	
 
 }

@@ -1,6 +1,5 @@
 package nivell1;
 
-import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -25,18 +24,18 @@ public class Persistencia {
 
 	}
 
-	public <T> ArrayList<T> getData(String nomClasse, String fitxer) {
+	public static <T> ArrayList<T> getData(String nomClasse) {
 
 		ArrayList<T> elements = new ArrayList<>();
 		ArrayList<String> Linies = new ArrayList<>();
-		Linies = ServeisData.readLinies(fitxer);
-		elements = stringToClasse(Linies, nomClasse);
+		Linies = ServeisData.readLinies(nomClasse);
+		elements = stringToObjecte(Linies, nomClasse);
 
 		return elements;
 
 	}
 
-	public <T> ArrayList<T> stringToClasse(ArrayList<String> linies, String nomClasse) {
+	public static <T> ArrayList<T> stringToObjecte(ArrayList<String> linies, String nomClasse) {
 
 		switch (nomClasse) {
 		case "Producte":
@@ -70,12 +69,12 @@ public class Persistencia {
 		return null;
 	}
 
-	public ArrayList<Producte> stringToProductes(ArrayList<String> linies) {
+	public static ArrayList<Producte> stringToProductes(ArrayList<String> linies) {
 
 		ArrayList<Producte> productes = new ArrayList<>();
 		Producte producte = new Producte();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			producte.setId(Integer.parseInt(campos[0]));
 			producte.setDesignacio(campos[1]);
 			productes.add(producte);
@@ -84,12 +83,12 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Arbre> stringToArbres(ArrayList<String> linies) {
+	public static ArrayList<Arbre> stringToArbres(ArrayList<String> linies) {
 
 		ArrayList<Arbre> arbres = new ArrayList<>();
 		Arbre arbre = new Arbre();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			arbre.setId(Integer.parseInt(campos[0]));
 			arbre.setAlcada(Float.parseFloat(campos[1]));
 			arbres.add(arbre);
@@ -98,11 +97,11 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Flor> stringToFlors(ArrayList<String> linies) {
+	public static ArrayList<Flor> stringToFlors(ArrayList<String> linies) {
 		ArrayList<Flor> flors = new ArrayList<>();
 		Flor flor = new Flor();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			flor.setId(Integer.parseInt(campos[0]));
 			flor.setColor(campos[1]);
 			flors.add(flor);
@@ -110,11 +109,11 @@ public class Persistencia {
 		return flors;
 	}
 
-	public ArrayList<Decoracio> stringToDecoracions(ArrayList<String> linies) {
+	public static ArrayList<Decoracio> stringToDecoracions(ArrayList<String> linies) {
 		ArrayList<Decoracio> decoracions = new ArrayList<>();
 		Decoracio decoracio = new Decoracio();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			Material material;
 			if (campos[1].toLowerCase().equals("plastic"))
 				material = Material.PLASTIC;
@@ -128,11 +127,11 @@ public class Persistencia {
 		return decoracions;
 	}
 
-	public ArrayList<LiniaCompra> stringToLiniesCompres(ArrayList<String> linies) {
+	public static ArrayList<LiniaCompra> stringToLiniesCompres(ArrayList<String> linies) {
 		ArrayList<LiniaCompra> liniesCompres = new ArrayList<>();
 		LiniaCompra liniaCompra = new LiniaCompra();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			liniaCompra.setId(Integer.parseInt(campos[0]));
 			liniaCompra.setCompraId(Integer.parseInt(campos[1]));
 			liniaCompra.setProducteId(Integer.parseInt(campos[2]));
@@ -142,11 +141,11 @@ public class Persistencia {
 		return liniesCompres;
 	}
 
-	public ArrayList<LiniaVenda> stringToLiniesVendes(ArrayList<String> linies) {
+	public static ArrayList<LiniaVenda> stringToLiniesVendes(ArrayList<String> linies) {
 		ArrayList<LiniaVenda> liniesVendes = new ArrayList<>();
 		LiniaVenda liniaVenda = new LiniaVenda();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			liniaVenda.setId(Integer.parseInt(campos[0]));
 			liniaVenda.setVendaId(Integer.parseInt(campos[1]));
 			liniaVenda.setProducteId(Integer.parseInt(campos[2]));
@@ -157,11 +156,11 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Compra> stringToCompres(ArrayList<String> linies) {
+	public static ArrayList<Compra> stringToCompres(ArrayList<String> linies) {
 		ArrayList<Compra> compres = new ArrayList<>();
 		Compra compra = new Compra();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			compra.setId(Integer.parseInt(campos[0]));
 			compra.setDate(Date.valueOf(campos[1]));
 			compres.add(compra);
@@ -170,12 +169,12 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Venda> stringToVendes(ArrayList<String> linies) {
+	public static ArrayList<Venda> stringToVendes(ArrayList<String> linies) {
 
 		ArrayList<Venda> vendes = new ArrayList<>();
 		Venda venda = new Venda();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
+			String[] campos = linia.split("\t");
 			venda.setId(Integer.parseInt(campos[0]));
 			venda.setDate(Date.valueOf(campos[1]));
 			vendes.add(venda);
@@ -184,12 +183,11 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Floristeria> stringToFloristeries(ArrayList<String> linies) {
+	public static ArrayList<Floristeria> stringToFloristeries(ArrayList<String> linies) {
 		ArrayList<Floristeria> floristeries = new ArrayList<>();
 		Floristeria floristeria = new Floristeria();
 		for (String linia : linies) {
-			String[] campos = linia.split(" ");
-			floristeria.setId(Integer.parseInt(campos[0]));
+			String[] campos = linia.split("\t");
 			floristeria.setNom(campos[1]);
 			floristeries.add(floristeria);
 		}
@@ -206,11 +204,11 @@ public class Persistencia {
 	 * }
 	 */
 
-	public <T> void saveData(ArrayList<T> elements, String fitxer) {
+	public <T> void saveData(ArrayList<T> elements, String nomClasse) {
 
 		ArrayList<String> Linies = new ArrayList<>();
 		elements.forEach((element) -> Linies.add(element.toString()));
-		ServeisData.writeLinies(Linies, fitxer);
+		ServeisData.writeLinies(Linies, nomClasse+"Data.txt");
 	}
 
 	public void saveProductes(ArrayList<Producte> productes) {

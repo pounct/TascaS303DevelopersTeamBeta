@@ -1,7 +1,6 @@
 package nivell1;
 
 import java.util.List;
-import java.util.Scanner;
 
 import entitats.Floristeria;
 import entitats.Producte;
@@ -10,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		// gestiona la persistència en fitxer TXT.
+		// gestiona la persistència en un fitxer TXT.
 		/**/
 		
 		// funcionalitats:
@@ -123,14 +122,10 @@ public class Main {
 	}
 
 	public static void crearFloristeria() {
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Crear Floristeria.");
 		Floristeria floristeria = new Floristeria();
 		
 		System.out.println("nom : ");
-		String nom = sc.nextLine();
-		floristeria.setId(Indexacio.getIndexFloristeria());
-		floristeria.setNom(nom);
 		
 		System.out.println("Desa la floristeria a la base de dades...");
 		Persistencia.saveFloristeria(floristeria);

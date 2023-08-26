@@ -13,7 +13,7 @@ public class Stock {
 	private static List<Producte> productes = new ArrayList<Producte>();
 
 	private static List<Arbre> arbres = new ArrayList<Arbre>();
-	private static List<Flor> flors = new ArrayList<Flor>();
+	private static List<Flor> flors = Persistencia.getData("Flor");
 	private static List<Decoracio> decoracions = new ArrayList<Decoracio>();
 
 	public static List<Producte> getProductes() {
@@ -22,9 +22,10 @@ public class Stock {
 
 	public void setProductes(List<Producte> productes) {
 		Stock.productes = productes;
+		Persistencia.saveFloristeria(null);
 	}
 
-	public List<Arbre> getArbres() {
+	public static List<Arbre> getArbres() {
 		return arbres;
 	}
 
@@ -32,7 +33,7 @@ public class Stock {
 		Stock.arbres = arbres;
 	}
 
-	public List<Flor> getFlors() {
+	public static List<Flor> getFlors() {
 		return flors;
 	}
 
@@ -40,7 +41,7 @@ public class Stock {
 		Stock.flors = flors;
 	}
 
-	public List<Decoracio> getDecoracions() {
+	public static List<Decoracio> getDecoracions() {
 		return decoracions;
 	}
 
