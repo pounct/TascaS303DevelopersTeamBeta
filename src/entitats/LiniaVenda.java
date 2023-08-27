@@ -48,5 +48,13 @@ public class LiniaVenda {
 		return id + "\t" + vendaId + "\t" + producteId + "\t" + preu;
 	}
 
-	
+	public LiniaVenda fromString(String linia) {
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setVendaId(Integer.parseInt(campos[1]));
+		this.setProducteId(Integer.parseInt(campos[2]));
+		this.setPreu(Double.parseDouble(campos[3]));
+		return this;
+		
+	}
 }

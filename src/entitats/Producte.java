@@ -29,6 +29,12 @@ public class Producte {
 		return id + "\t" + designacio;
 	}
 	
+	public Producte fromString(String linia) {
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setDesignacio(campos[1]);
+		return this;
+	}
 	
 
 }

@@ -1,5 +1,7 @@
 package entitats;
 
+import entitats.Decoracio.Material;
+
 public class Decoracio extends Producte {
 
 	private int id;
@@ -32,5 +34,20 @@ public class Decoracio extends Producte {
 	@Override
 	public String toString() {
 		return id + "\t" + designacio + "\t" + material;
+	}
+	
+	public Decoracio fromString(String linia) {
+		
+		String[] campos = linia.split("\t");
+		Material material;
+		if (campos[1].toLowerCase().equals("plastic"))
+			material = Material.PLASTIC;
+		else
+			material = Material.FUSTA;
+
+		this.setId(Integer.parseInt(campos[0]));
+		this.setMaterial(material);
+		
+		return this;		
 	}
 }

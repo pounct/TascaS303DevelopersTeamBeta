@@ -30,5 +30,13 @@ public class Compra {
 	public String toString() {
 		return id + "\t" + date;
 	}
+	
+	public Compra fromString(String linia) {
+		
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setDate(Date.valueOf(campos[1]));
+		return this;		
+	}
 
 }

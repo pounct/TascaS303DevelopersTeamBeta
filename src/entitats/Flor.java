@@ -29,4 +29,14 @@ public class Flor extends Producte {
 	public String toString() {
 		return id + "\t" + designacio + "\t" + color;
 	}
+	
+	public Flor fromString(String linia) {
+		
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setColor(campos[1]);
+		
+		return this;
+		
+	}
 }

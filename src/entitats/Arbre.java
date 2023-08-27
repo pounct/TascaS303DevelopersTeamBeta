@@ -1,5 +1,7 @@
 package entitats;
 
+import java.sql.Date;
+
 public class Arbre extends Producte {
 
 	private int id;
@@ -22,6 +24,15 @@ public class Arbre extends Producte {
 
 	public void setAlcada(float alcada) {
 		this.alcada = alcada;
+	}
+
+	public Arbre fromString(String linia) {
+
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setAlcada(Float.parseFloat(campos[1]));
+
+		return this;
 	}
 
 	@Override

@@ -25,4 +25,17 @@ public class Floristeria {
 		this.nom = nom;
 	}
 
+	@Override
+	public String toString() {
+		return id + "\t" + nom;
+	}
+	
+	public Floristeria fromString(String linia) {
+		String[] campos = linia.split("\t");
+		this.setId(Integer.parseInt(campos[0]));
+		this.setNom(campos[1]);
+		return this;
+	}
+	
+
 }
