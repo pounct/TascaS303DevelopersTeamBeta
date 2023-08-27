@@ -64,7 +64,7 @@ public class ServeisData {
 
 		BufferedWriter writer;
 		try {
-			writer = new BufferedWriter(new FileWriter(fitxer, true));
+			writer = new BufferedWriter(new FileWriter(fitxer));
 			Linies.forEach(Linia -> {
 				try {
 					writer.write(Linia + "\n");

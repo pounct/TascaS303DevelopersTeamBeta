@@ -6,21 +6,23 @@ import java.util.ArrayList;
 import entitats.Arbre;
 import entitats.Compra;
 import entitats.Decoracio;
-import entitats.Decoracio.Material;
 import entitats.Flor;
 import entitats.Floristeria;
+import entitats.Indexacio;
 import entitats.LiniaCompra;
 import entitats.LiniaVenda;
 import entitats.Producte;
 import entitats.Venda;
 
 public class Persistencia {
+	private EntitatsData entitatsData = new EntitatsData();
 
-	public void LoadData() {
-
+	public EntitatsData LoadAllData(String nomFloristeria) {		
+		entitatsData.loadEntitatsData(nomFloristeria);		
+		return entitatsData;
 	}
 
-	public void updateData() {
+	public void saveAllData() {
 
 	}
 
@@ -38,6 +40,7 @@ public class Persistencia {
 	public static <T> ArrayList<T> stringToObjecte(ArrayList<String> linies, String nomClasse) {
 
 		switch (nomClasse) {
+
 		case "Producte":
 			return (ArrayList<T>) stringToProductes(linies);
 		case "Arbre":
@@ -47,19 +50,14 @@ public class Persistencia {
 		case "Decoracio":
 			return (ArrayList<T>) stringToDecoracions(linies);
 		case "LiniaCompra":
-
 			return (ArrayList<T>) stringToLiniesCompres(linies);
 		case "LiniaVenda":
-
 			return (ArrayList<T>) stringToLiniesVendes(linies);
 		case "Compra":
-
 			return (ArrayList<T>) stringToCompres(linies);
 		case "Venda":
-
 			return (ArrayList<T>) stringToVendes(linies);
 		case "Floristeria":
-
 			return (ArrayList<T>) stringToFloristeries(linies);
 
 		default:
@@ -74,10 +72,7 @@ public class Persistencia {
 		ArrayList<Producte> productes = new ArrayList<>();
 		Producte producte = new Producte();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			producte.setId(Integer.parseInt(campos[0]));
-			producte.setDesignacio(campos[1]);
-			productes.add(producte);
+			productes.add(producte.fromString(linia));
 		}
 		return productes;
 
@@ -88,10 +83,7 @@ public class Persistencia {
 		ArrayList<Arbre> arbres = new ArrayList<>();
 		Arbre arbre = new Arbre();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			arbre.setId(Integer.parseInt(campos[0]));
-			arbre.setAlcada(Float.parseFloat(campos[1]));
-			arbres.add(arbre);
+			arbres.add(arbre.fromString(linia));
 		}
 		return arbres;
 
@@ -101,10 +93,7 @@ public class Persistencia {
 		ArrayList<Flor> flors = new ArrayList<>();
 		Flor flor = new Flor();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			flor.setId(Integer.parseInt(campos[0]));
-			flor.setColor(campos[1]);
-			flors.add(flor);
+			flors.add(flor.fromString(linia));
 		}
 		return flors;
 	}
@@ -113,16 +102,7 @@ public class Persistencia {
 		ArrayList<Decoracio> decoracions = new ArrayList<>();
 		Decoracio decoracio = new Decoracio();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			Material material;
-			if (campos[1].toLowerCase().equals("plastic"))
-				material = Material.PLASTIC;
-			else
-				material = Material.FUSTA;
-
-			decoracio.setId(Integer.parseInt(campos[0]));
-			decoracio.setMaterial(material);
-			decoracions.add(decoracio);
+			decoracions.add(decoracio.fromString(linia));
 		}
 		return decoracions;
 	}
@@ -131,12 +111,7 @@ public class Persistencia {
 		ArrayList<LiniaCompra> liniesCompres = new ArrayList<>();
 		LiniaCompra liniaCompra = new LiniaCompra();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			liniaCompra.setId(Integer.parseInt(campos[0]));
-			liniaCompra.setCompraId(Integer.parseInt(campos[1]));
-			liniaCompra.setProducteId(Integer.parseInt(campos[2]));
-			liniaCompra.setPreu(Double.parseDouble(campos[3]));
-			liniesCompres.add(liniaCompra);
+			liniesCompres.add(liniaCompra.fromString(linia));
 		}
 		return liniesCompres;
 	}
@@ -145,12 +120,7 @@ public class Persistencia {
 		ArrayList<LiniaVenda> liniesVendes = new ArrayList<>();
 		LiniaVenda liniaVenda = new LiniaVenda();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			liniaVenda.setId(Integer.parseInt(campos[0]));
-			liniaVenda.setVendaId(Integer.parseInt(campos[1]));
-			liniaVenda.setProducteId(Integer.parseInt(campos[2]));
-			liniaVenda.setPreu(Double.parseDouble(campos[3]));
-			liniesVendes.add(liniaVenda);
+			liniesVendes.add(liniaVenda.fromString(linia));
 		}
 		return liniesVendes;
 
@@ -160,10 +130,7 @@ public class Persistencia {
 		ArrayList<Compra> compres = new ArrayList<>();
 		Compra compra = new Compra();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			compra.setId(Integer.parseInt(campos[0]));
-			compra.setDate(Date.valueOf(campos[1]));
-			compres.add(compra);
+			compres.add(compra.fromString(linia));
 		}
 		return compres;
 
@@ -174,10 +141,7 @@ public class Persistencia {
 		ArrayList<Venda> vendes = new ArrayList<>();
 		Venda venda = new Venda();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			venda.setId(Integer.parseInt(campos[0]));
-			venda.setDate(Date.valueOf(campos[1]));
-			vendes.add(venda);
+			vendes.add(venda.fromString(linia));
 		}
 		return vendes;
 
@@ -187,9 +151,7 @@ public class Persistencia {
 		ArrayList<Floristeria> floristeries = new ArrayList<>();
 		Floristeria floristeria = new Floristeria();
 		for (String linia : linies) {
-			String[] campos = linia.split("\t");
-			floristeria.setNom(campos[1]);
-			floristeries.add(floristeria);
+			floristeries.add(floristeria.fromString(linia));
 		}
 		return floristeries;
 
@@ -208,7 +170,7 @@ public class Persistencia {
 
 		ArrayList<String> Linies = new ArrayList<>();
 		elements.forEach((element) -> Linies.add(element.toString()));
-		ServeisData.writeLinies(Linies, nomClasse+"Data.txt");
+		ServeisData.writeLinies(Linies, nomClasse + "Data.txt");
 	}
 
 	public void saveProductes(ArrayList<Producte> productes) {
@@ -255,6 +217,15 @@ public class Persistencia {
 
 		String fitxer = "data_txt\\FloristeriaData.txt";
 		String linia = floristeria.toString();
+
+		ServeisData.writeLinia(linia, fitxer);
+
+	}
+
+	public static void saveIndexacio(Indexacio indexacio) {
+
+		String fitxer = "data_txt\\IndexacioData.txt";
+		String linia = indexacio.toString();
 
 		ServeisData.writeLinia(linia, fitxer);
 
