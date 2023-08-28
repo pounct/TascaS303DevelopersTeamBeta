@@ -13,7 +13,6 @@ public class Indexacio {
 	
 
 	public Indexacio() {
-		super();
 	}
 
 	public Indexacio(int indexProducte, int indexCompra, int indexVenda, int indexLiniaCompra, int indexLiniaVenda,
