@@ -12,12 +12,15 @@ public class Main {
 	/*
 	 * Amb gestió de percistància en un fitxer TXT.
 	 */
+	static Floristeria floristeria;
+	static FloristeriaGestion floristeriaGestion;
 	static Indexacio indexacio;
-	EntitatsData entitatsData;
-	public static Scanner sc = new Scanner(System.in);
 	
+
+	public static Scanner sc = new Scanner(System.in);
+
 	public static void main(String[] args) {
-		
+
 		boolean onProgram = true;
 		Byte opcion;
 		while (onProgram) {
@@ -30,53 +33,93 @@ public class Main {
 				// initialtzar Indexacio
 				indexacio = new Indexacio(0, 0, 0, 0, 0, 0);
 				crearFloristeria(indexacio);
-				//System.out.println(indexacio);
+				// System.out.println(indexacio);
 				break;
 			case 2:
 				// 2.Afegir Arbre.
-				if (indexacio!=null) {
+				if (indexacio != null) {
 					afegirArbre(indexacio);
 				} else {
 					System.out.println(" no hi ha floristeria!!!");
 				}
-				
 
 				break;
 			case 3:
+				// 3.Afegir Flor.
+				afegirFlor();
 
 				break;
 			case 4:
+				// 4.Afegir Decoració.
+				afegirDecoracio();
 
 				break;
 			case 5:
-
+				// Stock: Imprimeix per pantalla tots els arbres, flors i decoració que té la
+				// floristeria.
+				// 5.Stock
+				imprimirStock(Stock.getProductes());
 				break;
 			case 6:
+				// 6.Retirar arbre.
+				retirarArbre();
 
 				break;
 			case 7:
+				// 7.Retirar flor.
+				retirarFlor();
 
 				break;
 			case 8:
+				// 8.Retirar decoració.
+				retirarDecoracio();
 
 				break;
 			case 9:
+				// Printar per pantalla stock amb quantitats.
+				// 9.Stock Amb Quantitats
+				imprimirStockQuantitats(Stock.getProductes());
 
 				break;
 			case 10:
+				// Printar per pantalla valor total de la floristeria.
+				// 10.Valor Stock // Valor Compres // ValorVendes
+				imprimirValorStock(Stock.getProductes());
 
 				break;
 			case 11:
+				// Crear tickets de compra amb múltiples objectes.
+				// 11.Compra amb múltiples objectes
+				ticketsCompra();
 
 				break;
 			case 12:
+				// Mostrar una llista de compres antigues.
+				// 12.Compres Antigues.
+				mostrarCompres();
 
 				break;
 			case 13:
+				// Visualitzar el total de diners guanyats amb totes les vendes.*/
+				// 13.diners guanyats
+				// Vendes
+				visualitzarTotalGuanyats();
 
 				break;
+			case 14:
+				// 14.Obrir Floristeria.
+				System.out.println(" Introduïu el codi de la floristeria :");
+				int idFloristeria = sc.nextInt();
+				sc.nextLine();
+				Floristeria f = new Floristeria();
+				f.setId(idFloristeria);	
+				if (floristeriaGestion.getFloristeries().contains(f)) {
+					floristeria = f;
+					obrirFloristeria(floristeria);
+				}
+				break;
 			case 0:
-				onProgram=false;
+				onProgram = false;
 				System.out.println("      Fin de programe.");
 				break;
 
@@ -89,59 +132,20 @@ public class Main {
 		// initialtzar Indexacio
 		indexacio = new Indexacio(0, 0, 0, 0, 0, 0);
 		crearFloristeria(indexacio);
-
-		
-
-		// 3.Afegir Flor.
-		afegirFlor();
-
-		// 4.Afegir Decoració.
-		afegirDecoracio();
-
-		// Stock: Imprimeix per pantalla tots els arbres, flors i decoració que té la
-		// floristeria.
-		// 5.Stock
-		imprimirStock(Stock.getProductes());
-
-		// 6.Retirar arbre.
-		retirarArbre();
-
-		// 7.Retirar flor.
-		retirarFlor();
-
-		// 8.Retirar decoració.
-		retirarDecoracio();
-
-		// Printar per pantalla stock amb quantitats.
-		// 9.Stock Amb Quantitats
-		imprimirStockQuantitats(Stock.getProductes());
-
-		// Printar per pantalla valor total de la floristeria.
-		// 10.Valor Stock // Valor Compres // ValorVendes
-		imprimirValorStock(Stock.getProductes());
-
-		// Crear tickets de compra amb múltiples objectes.
-		// 11.Compra amb múltiples objectes
-		ticketsCompra();
-
-		// Mostrar una llista de compres antigues.
-		// 12.Compres Antigues.
-		mostrarCompres();
-
-		// Visualitzar el total de diners guanyats amb totes les vendes.*/
-		// 13.diners guanyats
-		// Vendes
-		visualitzarTotalGuanyats();
-
 	}
 
-	private static void visualitzarTotalGuanyats() {
+	public static void obrirFloristeria(Floristeria floristeria) {
+		floristeriaGestion.setFloristeria(floristeria);
+	}
+
+	public static void visualitzarTotalGuanyats() {
 		// TODO Auto-generated method stub
 
 	}
 
 	public static void menuPrincipal() {
-		System.out.println(" 1.Crear Floristeria.");
+		System.out.println(" 1.Crear Floristeria."); // obrir floristeria
+		System.out.println(" 14.Obrir Floristeria.");
 		System.out.println(" 2.Afegir Arbre.");
 		System.out.println(" 3.Afegir Flor.");
 		System.out.println(" 4.Afegir Decoració.");
@@ -209,10 +213,10 @@ public class Main {
 	}
 
 	public static void afegirArbre(Indexacio indexacio) {
-		int producteId =indexacio.getIndexProducte();
-		int compraId =indexacio.getIndexCompra();
-		int liniaId =indexacio.getIndexLiniaCompra();
-		Date dateC= new Date(System.currentTimeMillis());
+		int producteId = indexacio.getIndexProducte();
+		int compraId = indexacio.getIndexCompra();
+		int liniaId = indexacio.getIndexLiniaCompra();
+		Date dateC = new Date(System.currentTimeMillis());
 		System.out.println("designacio : ");
 		String nom = sc.nextLine();
 		System.out.println("preu de compra : ");
@@ -223,8 +227,8 @@ public class Main {
 	}
 
 	public static void crearFloristeria(Indexacio indexacio) {
-		
-		//sc = new Scanner(System.in);
+
+		// sc = new Scanner(System.in);
 		System.out.println("Crear Floristeria.\n");
 		FloristeriaGestion floristeriaGestion = new FloristeriaGestion();
 		floristeriaGestion.setIndexacio(indexacio);

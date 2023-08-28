@@ -1,4 +1,4 @@
-package nivell1;
+package nivell1.copy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Stock {
 		return productes;
 	}
 
-	public static  void setProductes(List<Producte> productes) {
+	public void setProductes(List<Producte> productes) {
 		Stock.productes = productes;
 		Persistencia.saveFloristeria(null);
 	}
@@ -29,7 +29,7 @@ public class Stock {
 		return arbres;
 	}
 
-	public static void setArbres(List<Arbre> arbres) {
+	public void setArbres(List<Arbre> arbres) {
 		Stock.arbres = arbres;
 	}
 
@@ -37,7 +37,7 @@ public class Stock {
 		return flors;
 	}
 
-	public static void setFlors(List<Flor> flors) {
+	public void setFlors(List<Flor> flors) {
 		Stock.flors = flors;
 	}
 
@@ -45,7 +45,7 @@ public class Stock {
 		return decoracions;
 	}
 
-	public static void setDecoracions(List<Decoracio> decoracions) {
+	public void setDecoracions(List<Decoracio> decoracions) {
 		Stock.decoracions = decoracions;
 	}
 

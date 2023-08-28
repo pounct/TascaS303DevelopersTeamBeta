@@ -4,7 +4,7 @@ import entitats.Decoracio.Material;
 
 public class Decoracio extends Producte {
 
-	private int id;
+	//private int id;
 
 	public enum Material {
 		FUSTA, PLASTIC
@@ -33,7 +33,7 @@ public class Decoracio extends Producte {
 
 	@Override
 	public String toString() {
-		return id + "\t" + designacio + "\t" + material;
+		return id + "\t" + material;
 	}
 	
 	public Decoracio fromString(String linia) {

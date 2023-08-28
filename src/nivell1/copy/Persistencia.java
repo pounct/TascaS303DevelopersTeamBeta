@@ -1,4 +1,4 @@
-package nivell1;
+package nivell1.copy;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -6,32 +6,29 @@ import java.util.ArrayList;
 import entitats.Arbre;
 import entitats.Compra;
 import entitats.Decoracio;
+import entitats.Decoracio.Material;
 import entitats.Flor;
 import entitats.Floristeria;
-import entitats.Indexacio;
 import entitats.LiniaCompra;
 import entitats.LiniaVenda;
 import entitats.Producte;
 import entitats.Venda;
 
 public class Persistencia {
-	private static Floristeria floristeria;
-	private EntitatsData entitatsData;
 
-	public EntitatsData LoadAllData(String nomFloristeria) {
-		entitatsData.loadEntitatsData(nomFloristeria);
-		return entitatsData;
+	public void LoadData() {
+
 	}
 
-	public void saveAllData() {
+	public void updateData() {
 
 	}
 
 	public static <T> ArrayList<T> getData(String nomClasse) {
-		String path = "data_txt\\" + floristeria.getNom() + "\\";
+
 		ArrayList<T> elements = new ArrayList<>();
 		ArrayList<String> Linies = new ArrayList<>();
-		Linies = ServeisData.readLinies(path + nomClasse + "data_txt");
+		Linies = ServeisData.readLinies(nomClasse);
 		elements = stringToObjecte(Linies, nomClasse);
 
 		return elements;
@@ -41,7 +38,6 @@ public class Persistencia {
 	public static <T> ArrayList<T> stringToObjecte(ArrayList<String> linies, String nomClasse) {
 
 		switch (nomClasse) {
-
 		case "Producte":
 			return (ArrayList<T>) stringToProductes(linies);
 		case "Arbre":
@@ -51,17 +47,20 @@ public class Persistencia {
 		case "Decoracio":
 			return (ArrayList<T>) stringToDecoracions(linies);
 		case "LiniaCompra":
+
 			return (ArrayList<T>) stringToLiniesCompres(linies);
 		case "LiniaVenda":
+
 			return (ArrayList<T>) stringToLiniesVendes(linies);
 		case "Compra":
+
 			return (ArrayList<T>) stringToCompres(linies);
 		case "Venda":
+
 			return (ArrayList<T>) stringToVendes(linies);
 		case "Floristeria":
+
 			return (ArrayList<T>) stringToFloristeries(linies);
-		case "Indexacio":
-			return (ArrayList<T>) stringToIndexacions(linies);
 
 		default:
 			System.out.println("error en nom de classe");
@@ -70,21 +69,15 @@ public class Persistencia {
 		return null;
 	}
 
-	public static ArrayList<Indexacio> stringToIndexacions(ArrayList<String> linies) {
-		ArrayList<Indexacio> indexacions = new ArrayList<>();
-		Indexacio indexacio = new Indexacio();
-		for (String linia : linies) {
-			indexacions.add(indexacio.fromString(linia));
-		}
-		return indexacions;
-	}
-
 	public static ArrayList<Producte> stringToProductes(ArrayList<String> linies) {
 
 		ArrayList<Producte> productes = new ArrayList<>();
 		Producte producte = new Producte();
 		for (String linia : linies) {
-			productes.add(producte.fromString(linia));
+			String[] campos = linia.split("\t");
+			producte.setId(Integer.parseInt(campos[0]));
+			producte.setDesignacio(campos[1]);
+			productes.add(producte);
 		}
 		return productes;
 
@@ -95,7 +88,10 @@ public class Persistencia {
 		ArrayList<Arbre> arbres = new ArrayList<>();
 		Arbre arbre = new Arbre();
 		for (String linia : linies) {
-			arbres.add(arbre.fromString(linia));
+			String[] campos = linia.split("\t");
+			arbre.setId(Integer.parseInt(campos[0]));
+			arbre.setAlcada(Float.parseFloat(campos[1]));
+			arbres.add(arbre);
 		}
 		return arbres;
 
@@ -105,7 +101,10 @@ public class Persistencia {
 		ArrayList<Flor> flors = new ArrayList<>();
 		Flor flor = new Flor();
 		for (String linia : linies) {
-			flors.add(flor.fromString(linia));
+			String[] campos = linia.split("\t");
+			flor.setId(Integer.parseInt(campos[0]));
+			flor.setColor(campos[1]);
+			flors.add(flor);
 		}
 		return flors;
 	}
@@ -114,7 +113,16 @@ public class Persistencia {
 		ArrayList<Decoracio> decoracions = new ArrayList<>();
 		Decoracio decoracio = new Decoracio();
 		for (String linia : linies) {
-			decoracions.add(decoracio.fromString(linia));
+			String[] campos = linia.split("\t");
+			Material material;
+			if (campos[1].toLowerCase().equals("plastic"))
+				material = Material.PLASTIC;
+			else
+				material = Material.FUSTA;
+
+			decoracio.setId(Integer.parseInt(campos[0]));
+			decoracio.setMaterial(material);
+			decoracions.add(decoracio);
 		}
 		return decoracions;
 	}
@@ -123,7 +131,12 @@ public class Persistencia {
 		ArrayList<LiniaCompra> liniesCompres = new ArrayList<>();
 		LiniaCompra liniaCompra = new LiniaCompra();
 		for (String linia : linies) {
-			liniesCompres.add(liniaCompra.fromString(linia));
+			String[] campos = linia.split("\t");
+			liniaCompra.setId(Integer.parseInt(campos[0]));
+			liniaCompra.setCompraId(Integer.parseInt(campos[1]));
+			liniaCompra.setProducteId(Integer.parseInt(campos[2]));
+			liniaCompra.setPreu(Double.parseDouble(campos[3]));
+			liniesCompres.add(liniaCompra);
 		}
 		return liniesCompres;
 	}
@@ -132,7 +145,12 @@ public class Persistencia {
 		ArrayList<LiniaVenda> liniesVendes = new ArrayList<>();
 		LiniaVenda liniaVenda = new LiniaVenda();
 		for (String linia : linies) {
-			liniesVendes.add(liniaVenda.fromString(linia));
+			String[] campos = linia.split("\t");
+			liniaVenda.setId(Integer.parseInt(campos[0]));
+			liniaVenda.setVendaId(Integer.parseInt(campos[1]));
+			liniaVenda.setProducteId(Integer.parseInt(campos[2]));
+			liniaVenda.setPreu(Double.parseDouble(campos[3]));
+			liniesVendes.add(liniaVenda);
 		}
 		return liniesVendes;
 
@@ -142,7 +160,10 @@ public class Persistencia {
 		ArrayList<Compra> compres = new ArrayList<>();
 		Compra compra = new Compra();
 		for (String linia : linies) {
-			compres.add(compra.fromString(linia));
+			String[] campos = linia.split("\t");
+			compra.setId(Integer.parseInt(campos[0]));
+			compra.setDate(Date.valueOf(campos[1]));
+			compres.add(compra);
 		}
 		return compres;
 
@@ -153,6 +174,9 @@ public class Persistencia {
 		ArrayList<Venda> vendes = new ArrayList<>();
 		Venda venda = new Venda();
 		for (String linia : linies) {
+			String[] campos = linia.split("\t");
+			venda.setId(Integer.parseInt(campos[0]));
+			venda.setDate(Date.valueOf(campos[1]));
 			vendes.add(venda.fromString(linia));
 		}
 		return vendes;
@@ -163,7 +187,9 @@ public class Persistencia {
 		ArrayList<Floristeria> floristeries = new ArrayList<>();
 		Floristeria floristeria = new Floristeria();
 		for (String linia : linies) {
-			floristeries.add(floristeria.fromString(linia));
+			String[] campos = linia.split("\t");
+			floristeria.setNom(campos[1]);
+			floristeries.add(floristeria);
 		}
 		return floristeries;
 
@@ -182,7 +208,7 @@ public class Persistencia {
 
 		ArrayList<String> Linies = new ArrayList<>();
 		elements.forEach((element) -> Linies.add(element.toString()));
-		ServeisData.writeLinies(Linies, nomClasse + "Data.txt");
+		ServeisData.writeLinies(Linies, nomClasse+"Data.txt");
 	}
 
 	public void saveProductes(ArrayList<Producte> productes) {
@@ -234,24 +260,12 @@ public class Persistencia {
 
 	}
 
-	public static void saveIndexacio(Indexacio indexacio) {
-
-		String fitxer = "data_txt\\IndexacioData.txt";
-		String linia = indexacio.toString();
-
-		ServeisData.writeLinia(linia, fitxer);
-
-	}
-
 	public void saveLiniesVendes(ArrayList<LiniaVenda> liniesVendes) {
 		String fitxer = "data_txt\\LiniaVendaData.txt";
 		saveData(liniesVendes, fitxer);
 	}
-//////////////////////////////////////////////////////////////////////
-	public ArrayList<Arbre> getArbres(String nomFloristeria) {
-		String fitxer = "data_txt\\LiniaVendaData.txt";
 
-		return getData(fitxer);
+	public void getArbres() {
 
 	}
 

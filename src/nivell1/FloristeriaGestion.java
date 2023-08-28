@@ -13,32 +13,100 @@ import entitats.Venda;
 
 public class FloristeriaGestion {
 
+	// gestion floristeria
 	private Floristeria floristeria;
+	private ArrayList<Floristeria> floristeries;
+	private EntitatsData entitatsData;
+	// gestion indexacio
+	
 	private Indexacio indexacio;
-
-	private List<Arbre> arbres = Stock.getArbres();
+	// gestion producte
+	private List<Arbre> arbres;
 	private List<Flor> flors = Stock.getFlors();
 	private List<Decoracio> decoracio = Stock.getDecoracions();
-
+	// gestion Stock
+	private Stock stock;
+	//stock.setArbres(Stock.getArbres());
 	private List<Compra> compres = new ArrayList<Compra>();
 	private List<Venda> vendes = new ArrayList<Venda>();
+	//////
+	private ArrayList<Indexacio> indexacions;
+	//////
 
 	public FloristeriaGestion() {
+		floristeries = Persistencia.getData("Floristeria");
+	}
+	
+	public <T> void addToList(List<T> list, T o) {
+		list.add(o);
+	}
+	public <T> void removeFromList(List<T> list, T o) {
+		list.remove(o);
+	}
+
+	public <T>  void imprimirList(List<T> list) {
+		for(T t :list) {System.out.println(t);}
+	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
+	public void setFloristeries(ArrayList<Floristeria> floristeries) {
+		this.floristeries = floristeries;
+	}
+
+	public ArrayList<Floristeria> getFloristeries() {
+		return floristeries;
+	}
+
+	public void setFloristeries(Floristeria[] floristeries) {
+		//this.floristeries = floristeries;
+	}
+
+	public Indexacio[] getIndexacions() {
+		return null;
+		//return indexacions;
+	}
+
+	public void setIndexacions(ArrayList<Indexacio> indexacions) {
+		this.indexacions = indexacions;
 	}
 
 	public Floristeria getFloristeria() {
 		return floristeria;
 	}
-
 	public void setFloristeria(Floristeria floristeria) {
-		this.floristeria = floristeria;
+		
+		
 	}
+	
+	public void loadFloristeria(Floristeria floristeria) {
+		if (floristeries.contains(floristeria)) {
+			entitatsData.loadEntitatsData(floristeria.getNom());
+			arbres=entitatsData.getArbres();
+		}
+		this.floristeria = floristeria;
+		this.setIndexacions(Persistencia.getData("Indexacio"));
+		this.indexacio=indexacions.get(0);
+		this.setArbres(Persistencia.getData("arbre"));
+	}
+	
+	
+	
+	
+	
 
 	public List<Arbre> getArbres() {
-		return arbres;
+		return  Stock.getArbres();
 	}
 
 	public void setArbres(List<Arbre> arbres) {
+		Stock.setArbres(arbres);
 		this.arbres = arbres;
 	}
 

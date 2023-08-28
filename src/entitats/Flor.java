@@ -2,7 +2,7 @@ package entitats;
 
 public class Flor extends Producte {
 
-	private int id;
+	//private int id;
 
 	private String color;
 
@@ -27,7 +27,7 @@ public class Flor extends Producte {
 
 	@Override
 	public String toString() {
-		return id + "\t" + designacio + "\t" + color;
+		return id + "\t" + color;
 	}
 	
 	public Flor fromString(String linia) {

@@ -1,5 +1,7 @@
 package entitats;
 
+import java.util.Objects;
+
 public class Floristeria {
 
 	private int id;
@@ -23,6 +25,25 @@ public class Floristeria {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nom);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Floristeria other = (Floristeria) obj;
+		return id == other.id ;
 	}
 
 	@Override
