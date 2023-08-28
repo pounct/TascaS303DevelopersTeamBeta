@@ -232,7 +232,7 @@ public class Main {
 		System.out.println("Crear Floristeria.\n");
 		FloristeriaGestion floristeriaGestion = new FloristeriaGestion();
 		floristeriaGestion.setIndexacio(indexacio);
-		Floristeria floristeria = new Floristeria();
+		floristeria = new Floristeria();
 
 		System.out.println("nom : ");
 		String nom = sc.nextLine();
@@ -241,7 +241,7 @@ public class Main {
 		floristeria.setNom(nom);
 
 		System.out.println("guardar la floristeria a la base de dades...");
-
+		floristeriaGestion.setFloristeria(floristeria);
 		floristeriaGestion.save(floristeria);
 
 		System.out.println("floristeria guardada.");

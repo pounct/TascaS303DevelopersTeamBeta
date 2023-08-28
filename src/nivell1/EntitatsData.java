@@ -28,49 +28,123 @@ public class EntitatsData {
 	private ArrayList<Venda> vendes;
 
 	public EntitatsData(Floristeria floristeria) {
-		
-		this.floristeria=floristeria;
+
+		this.floristeria = floristeria;
 	}
 
 	public ArrayList<Arbre> getArbres() {
-		arbres=Persistencia.getData("Arbre");
-		return arbres;
+		this.arbres = Persistencia.getData("Arbre");
+		return this.arbres;
 	}
 
 	public ArrayList<Compra> getCompres() {
-		return Persistencia.getData("Compra");
+		this.compres = Persistencia.getData("Compra");
+		return this.compres;
 	}
 
 	public ArrayList<Decoracio> getDecoracions() {
-		return Persistencia.getData("Decoracio");
+		this.decoracions = Persistencia.getData("Decoracio");
+		return this.decoracions;
 	}
 
 	public ArrayList<Flor> getFlors() {
-		return Persistencia.getData("Flor");
+		this.flors = Persistencia.getData("Flor");
+		return this.flors;
 	}
 
 	public ArrayList<Floristeria> getFloristeries() {
-		return Persistencia.getData("Floristeria");
+		this.floristeries = Persistencia.getData("Floristeria");
+		return this.floristeries;
 	}
 
 	public ArrayList<Indexacio> getIndexacions() {
-		return Persistencia.getData("Indexacio");
+		this.indexacions = Persistencia.getData("Indexacio");
+		return this.indexacions;
 	}
 
 	public ArrayList<LiniaCompra> getLiniesCompres() {
-		return Persistencia.getData("LiniaCompra");
+		this.liniesCompres = Persistencia.getData("LiniaCompra");
+		return this.liniesCompres;
 	}
 
 	public ArrayList<LiniaVenda> getLiniesVendes() {
-		return Persistencia.getData("LiniaVenda");
+		this.liniesVendes = Persistencia.getData("LiniaVenda");
+		return this.liniesVendes;
 	}
 
 	public ArrayList<Producte> getProductes() {
-		return Persistencia.getData("Producte");
+		this.productes = Persistencia.getData("Producte");
+		return this.productes;
 	}
 
 	public ArrayList<Venda> getVendes() {
-		return Persistencia.getData("Venda");
+		this.vendes = Persistencia.getData("Venda");
+		return this.vendes;
+	}
+
+	public void setArbres(ArrayList<Arbre> arbres) {
+		this.arbres = arbres;
+		Persistencia.saveData(this.arbres, "Arbre");
+	}
+
+	public void setCompres(ArrayList<Compra> compres) {
+		this.compres = compres;
+		Persistencia.saveData(this.arbres, "Compra");
+	}
+
+	public void setDecoracions(ArrayList<Decoracio> decoracions) {
+		this.decoracions = decoracions;
+		Persistencia.saveData(this.arbres, "Decoracio");
+	}
+
+	public void setFlors(ArrayList<Flor> flors) {
+		this.flors = flors;
+		Persistencia.saveData(this.arbres, "Flor");
+	}
+
+	public void setFloristeries(ArrayList<Floristeria> floristeries) {
+		this.floristeries = floristeries;
+		Persistencia.saveData(this.arbres, "Floristeria");
+	}
+
+	public void setIndexacions(ArrayList<Indexacio> indexacions) {
+		this.indexacions = indexacions;
+		Persistencia.saveData(this.arbres, "Indexacio");
+	}
+
+	public void setLiniesCompres(ArrayList<LiniaCompra> liniesCompres) {
+		this.liniesCompres = liniesCompres;
+		Persistencia.saveData(this.arbres, "LiniaCompra");
+	}
+
+	public void setLiniesVendes(ArrayList<LiniaVenda> liniesVendes) {
+		this.liniesVendes = liniesVendes;
+		Persistencia.saveData(this.arbres, "LiniaVenda");
+	}
+
+	public void setProductes(ArrayList<Producte> productes) {
+		this.productes = productes;
+		Persistencia.saveData(this.arbres, "Producte");
+	}
+
+	public void setVendes(ArrayList<Venda> vendes) {
+		this.vendes = vendes;
+		Persistencia.saveData(this.arbres, "Venda");
+	}
+
+	public void saveEntitatsData(String nomFloristeria) {
+
+		Persistencia.saveData(this.arbres, "Arbre");
+		Persistencia.saveData(this.arbres, "Compra");
+		Persistencia.saveData(this.arbres, "Decoracio");
+		Persistencia.saveData(this.arbres, "Flor");
+		Persistencia.saveData(this.arbres, "Floristeria");
+		Persistencia.saveData(this.arbres, "Indexacio");
+		Persistencia.saveData(this.arbres, "LiniaCompra");
+		Persistencia.saveData(this.arbres, "LiniaVenda");
+		Persistencia.saveData(this.arbres, "Producte");
+		Persistencia.saveData(this.arbres, "Venda");
+
 	}
 
 	public EntitatsData loadEntitatsData(String nomFloristeria) {

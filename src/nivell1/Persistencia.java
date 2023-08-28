@@ -1,6 +1,6 @@
 package nivell1;
 
-import java.sql.Date;
+//import java.sql.Date;
 import java.util.ArrayList;
 
 import entitats.Arbre;
@@ -15,6 +15,7 @@ import entitats.Producte;
 import entitats.Venda;
 
 public class Persistencia {
+	
 	private static Floristeria floristeria;
 	private EntitatsData entitatsData;
 
@@ -23,8 +24,8 @@ public class Persistencia {
 		return entitatsData;
 	}
 
-	public void saveAllData() {
-
+	public void saveAllData(String nomFloristeria) {
+		entitatsData.saveEntitatsData(nomFloristeria);
 	}
 
 	public static <T> ArrayList<T> getData(String nomClasse) {
@@ -178,7 +179,7 @@ public class Persistencia {
 	 * }
 	 */
 
-	public <T> void saveData(ArrayList<T> elements, String nomClasse) {
+	public static <T> void saveData(ArrayList<T> elements, String nomClasse) {
 
 		ArrayList<String> Linies = new ArrayList<>();
 		elements.forEach((element) -> Linies.add(element.toString()));
