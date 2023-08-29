@@ -1,7 +1,9 @@
 package nivell1;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import entitats.Arbre;
 import entitats.Compra;
@@ -9,26 +11,32 @@ import entitats.Decoracio;
 import entitats.Flor;
 import entitats.Floristeria;
 import entitats.Indexacio;
+import entitats.LiniaCompra;
+import entitats.LiniaVenda;
+import entitats.Producte;
 import entitats.Venda;
 
 public class FloristeriaGestion {
 
 	// gestion floristeria
 	private Floristeria floristeria;
+	private String pathFloristeriaDB;
 	private ArrayList<Floristeria> floristeries;
 	private EntitatsData entitatsData;
 	// gestion indexacio
-	
 	private Indexacio indexacio;
 	// gestion producte
+	private List<Producte> productes;
 	private List<Arbre> arbres;
 	private List<Flor> flors = Stock.getFlors();
 	private List<Decoracio> decoracio = Stock.getDecoracions();
 	// gestion Stock
 	private Stock stock;
-	//stock.setArbres(Stock.getArbres());
+	// stock.setArbres(Stock.getArbres());
 	private List<Compra> compres = new ArrayList<Compra>();
 	private List<Venda> vendes = new ArrayList<Venda>();
+	private List<LiniaCompra> liniesCompres = new ArrayList<LiniaCompra>();
+	private List<LiniaVenda> liniesVendes = new ArrayList<LiniaVenda>();
 	//////
 	private ArrayList<Indexacio> indexacions;
 	//////
@@ -36,16 +44,76 @@ public class FloristeriaGestion {
 	public FloristeriaGestion() {
 		floristeries = Persistencia.getData("Floristeria");
 	}
-	
+
+	public void afegirArbre(Indexacio indexacio, Scanner sc) {
+		Arbre arbre = new Arbre();
+		Producte producte = new Producte();
+		Compra compra = new Compra();
+		LiniaCompra liniaCompra = new LiniaCompra();
+		int producteId = indexacio.getIndexProducte();
+		int compraId = indexacio.getIndexCompra();
+		int liniaId = indexacio.getIndexLiniaCompra();
+		Date dateC = new Date(System.currentTimeMillis());
+		System.out.println("designacio : ");
+		String nom = sc.nextLine();
+		System.out.println("preu de compra : ");
+		double preu = sc.nextDouble();
+		sc.nextLine();
+		System.out.println("alcada del arbre : ");
+		float alcada = sc.nextFloat();
+		sc.nextLine();
+		// afegir Arbre
+		arbre.setId(producteId);
+		arbre.setAlcada(alcada);
+		this.arbres.add(arbre);
+
+		// update depemdencies
+		producte.setId(producteId);
+		producte.setDesignacio(nom);
+		this.productes.add(producte);
+		//////////////////////
+		compra.setId(compraId);
+		compra.setDate(dateC);
+		this.compres.add(compra);
+		////////////////////////
+		liniaCompra.setCompraId(compraId);
+		liniaCompra.setId(liniaId);
+		liniaCompra.setProducteId(producteId);
+		liniaCompra.setPreu(preu);
+		this.liniesCompres.add(liniaCompra);
+
+		entitatsData.save(floristeria.getNom());
+
+	}
+
 	public <T> void addToList(List<T> list, T o) {
 		list.add(o);
 	}
+
 	public <T> void removeFromList(List<T> list, T o) {
 		list.remove(o);
 	}
 
-	public <T>  void imprimirList(List<T> list) {
-		for(T t :list) {System.out.println(t);}
+	public <T> void imprimirList(List<T> list) {
+		for (T t : list) {
+			System.out.println(t);
+		}
+	}
+
+	public String getPathFloristeriaDB() {
+		return pathFloristeriaDB;
+	}
+
+	public void setPathFloristeriaDB(String pathFloristeriaDB) {
+		this.pathFloristeriaDB = pathFloristeriaDB;
+	}
+
+	public EntitatsData getEntitatsData() {
+		return entitatsData;
+	}
+
+	public void setEntitatsData(EntitatsData entitatsData) {
+		this.entitatsData = entitatsData;
 	}
 
 	public Stock getStock() {
@@ -65,12 +133,12 @@ public class FloristeriaGestion {
 	}
 
 	public void setFloristeries(Floristeria[] floristeries) {
-		//this.floristeries = floristeries;
+		// this.floristeries = floristeries;
 	}
 
 	public Indexacio[] getIndexacions() {
 		return null;
-		//return indexacions;
+		// return indexacions;
 	}
 
 	public void setIndexacions(ArrayList<Indexacio> indexacions) {
@@ -80,29 +148,27 @@ public class FloristeriaGestion {
 	public Floristeria getFloristeria() {
 		return floristeria;
 	}
+
 	public void setFloristeria(Floristeria floristeria) {
-		
-		
+		this.pathFloristeriaDB = "data_txt\\" + floristeria.getNom() + "\\";
+		this.entitatsData.setFloristeria(floristeria);
+		this.floristeria = floristeria;
 	}
-	
+
 	public void loadFloristeria(Floristeria floristeria) {
+		this.pathFloristeriaDB = "data_txt\\" + floristeria.getNom() + "\\";
 		if (floristeries.contains(floristeria)) {
 			entitatsData.loadEntitatsData(floristeria.getNom());
-			arbres=entitatsData.getArbres();
+			arbres = entitatsData.getDataTableFromDB(null, floristeria);
 		}
 		this.floristeria = floristeria;
 		this.setIndexacions(Persistencia.getData("Indexacio"));
-		this.indexacio=indexacions.get(0);
+		this.indexacio = indexacions.get(0);
 		this.setArbres(Persistencia.getData("arbre"));
 	}
-	
-	
-	
-	
-	
 
 	public List<Arbre> getArbres() {
-		return  Stock.getArbres();
+		return Stock.getArbres();
 	}
 
 	public void setArbres(List<Arbre> arbres) {
@@ -161,6 +227,22 @@ public class FloristeriaGestion {
 	public String toString() {
 		return "FloristeriaGestion [arbres=" + arbres + ", flors=" + flors + ", decoracio=" + decoracio + ", compres="
 				+ compres + ", vendes=" + vendes + "]";
+	}
+
+	public List<LiniaCompra> getLiniesCompres() {
+		return liniesCompres;
+	}
+
+	public void setLiniesCompres(List<LiniaCompra> liniesCompres) {
+		this.liniesCompres = liniesCompres;
+	}
+
+	public List<LiniaVenda> getLiniesVendes() {
+		return liniesVendes;
+	}
+
+	public void setLiniesVendes(List<LiniaVenda> liniesVendes) {
+		this.liniesVendes = liniesVendes;
 	}
 
 	// funcionalitats:

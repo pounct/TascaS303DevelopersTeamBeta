@@ -23,6 +23,7 @@ public class Main {
 
 		boolean onProgram = true;
 		Byte opcion;
+		
 		while (onProgram) {
 			menuPrincipal();
 			opcion = sc.nextByte();
@@ -33,12 +34,11 @@ public class Main {
 				// initialtzar Indexacio
 				indexacio = new Indexacio(0, 0, 0, 0, 0, 0);
 				crearFloristeria(indexacio);
-				// System.out.println(indexacio);
 				break;
 			case 2:
 				// 2.Afegir Arbre.
 				if (indexacio != null) {
-					afegirArbre(indexacio);
+					floristeriaGestion.afegirArbre(indexacio,sc);
 				} else {
 					System.out.println(" no hi ha floristeria!!!");
 				}
@@ -46,12 +46,21 @@ public class Main {
 				break;
 			case 3:
 				// 3.Afegir Flor.
-				afegirFlor();
+				if (indexacio != null) {
+					afegirFlor(indexacio);
+				} else {
+					System.out.println(" no hi ha floristeria!!!");
+				}
+				
 
 				break;
 			case 4:
 				// 4.Afegir Decoració.
-				afegirDecoracio();
+				if (indexacio != null) {
+					afegirDecoracio(indexacio);
+				} else {
+					System.out.println(" no hi ha floristeria!!!");
+				}
 
 				break;
 			case 5:
@@ -126,24 +135,12 @@ public class Main {
 			default:
 				break;
 			}
-		}
-
-		// 1.Crear Floristeria.
-		// initialtzar Indexacio
-		indexacio = new Indexacio(0, 0, 0, 0, 0, 0);
-		crearFloristeria(indexacio);
+		}		
 	}
-
-	public static void obrirFloristeria(Floristeria floristeria) {
-		floristeriaGestion.setFloristeria(floristeria);
-	}
-
-	public static void visualitzarTotalGuanyats() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	public static void menuPrincipal() {
+		System.out.println(" Floristeria:"+((floristeria!=null)? floristeria.getNom():""));
+		System.out.println("\n\n");
 		System.out.println(" 1.Crear Floristeria."); // obrir floristeria
 		System.out.println(" 14.Obrir Floristeria.");
 		System.out.println(" 2.Afegir Arbre.");
@@ -159,8 +156,41 @@ public class Main {
 		System.out.println(" 12.Compres Antigues.");
 		System.out.println(" 13.diners guanyats");
 		System.out.println(" 0.fin");
+	}
+	
+	public static void crearFloristeria(Indexacio indexacio) {
+
+		// sc = new Scanner(System.in);
+		System.out.println("Crear Floristeria.\n");
+		
+		floristeria = new Floristeria();
+
+		System.out.println("nom : ");
+		String nom = sc.nextLine();
+		// floristeriaGestion.setNom(nom);
+		floristeria.setId(indexacio.getIndexFloristeria());
+		floristeria.setNom(nom);
+
+		System.out.println("guardar la floristeria a la base de dades...");
+
+		// FloristeriaGestion floristeriaGestion
+		floristeriaGestion.setIndexacio(indexacio);
+		floristeriaGestion.setFloristeria(floristeria);
+
+		System.out.println("floristeria guardada.");
 
 	}
+
+	public static void obrirFloristeria(Floristeria floristeria) {
+		floristeriaGestion.setFloristeria(floristeria);
+	}
+
+	public static void visualitzarTotalGuanyats() {
+		// TODO Auto-generated method stub
+
+	}
+
+	
 
 	private static void mostrarCompres() {
 		// TODO Auto-generated method stub
@@ -202,50 +232,18 @@ public class Main {
 
 	}
 
-	public static void afegirDecoracio() {
+	public static void afegirDecoracio(Indexacio indexacio2) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void afegirFlor() {
+	public static void afegirFlor(Indexacio indexacio2) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void afegirArbre(Indexacio indexacio) {
-		int producteId = indexacio.getIndexProducte();
-		int compraId = indexacio.getIndexCompra();
-		int liniaId = indexacio.getIndexLiniaCompra();
-		Date dateC = new Date(System.currentTimeMillis());
-		System.out.println("designacio : ");
-		String nom = sc.nextLine();
-		System.out.println("preu de compra : ");
-		double preu = sc.nextDouble();
-		sc.nextLine();
-		Producte producte = new Producte();
+	
 
-	}
-
-	public static void crearFloristeria(Indexacio indexacio) {
-
-		// sc = new Scanner(System.in);
-		System.out.println("Crear Floristeria.\n");
-		FloristeriaGestion floristeriaGestion = new FloristeriaGestion();
-		floristeriaGestion.setIndexacio(indexacio);
-		floristeria = new Floristeria();
-
-		System.out.println("nom : ");
-		String nom = sc.nextLine();
-		// floristeriaGestion.setNom(nom);
-		floristeria.setId(indexacio.getIndexCompra());
-		floristeria.setNom(nom);
-
-		System.out.println("guardar la floristeria a la base de dades...");
-		floristeriaGestion.setFloristeria(floristeria);
-		floristeriaGestion.save(floristeria);
-
-		System.out.println("floristeria guardada.");
-
-	}
+	
 
 }

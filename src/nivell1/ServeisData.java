@@ -2,7 +2,6 @@ package nivell1;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -21,25 +20,16 @@ import entitats.Venda;
 
 public class ServeisData {
 
-	public static void crearDirectori(String nomFloristeria) {
-		String path = ".\\src\\main\\resources\\dbs\\" + nomFloristeria;
-		// Instantiate the File class
-		File f1 = new File(path);
-		// Creating a folder using mkdir() method
-		boolean bool = f1.mkdir();
-		if (bool) {
-			System.out.println("Folder is created successfully");
-		} else {
-			System.out.println("Error Found!");
-		}
-	}
-
 	public static ArrayList<String> readLinies(String fitxer) {
-
+		
 		ArrayList<String> linies = new ArrayList<>();
+
 		BufferedReader reader;
 		try {
+
+			
 			reader = new BufferedReader(new FileReader(fitxer));
+			
 			try {
 				String linia;
 				while ((linia = reader.readLine()) != null) {
@@ -49,10 +39,25 @@ public class ServeisData {
 
 				e.printStackTrace();
 			}
+
 		} catch (FileNotFoundException e) {
+
 			e.printStackTrace();
 		}
 		return linies;
+	}
+
+	public static void writeLinia(String Linia, String fitxer) {
+
+		BufferedWriter writer;
+		try {
+			writer = new BufferedWriter(new FileWriter(fitxer, true));
+			writer.write(Linia + "\n");
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void writeLinies(ArrayList<String> Linies, String fitxer) {
@@ -74,6 +79,7 @@ public class ServeisData {
 
 			e.printStackTrace();
 		}
+
 	}
 
 	public void writeProducte(Producte p) {
@@ -203,18 +209,6 @@ public class ServeisData {
 
 	public void updateLiniaVenda(List<LiniaVenda> llv) {
 		llv.forEach(p -> writeLiniaVenda(p));
-	}
-
-	public static void writeLinia(String Linia, String fitxer) {
-
-		BufferedWriter writer;
-		try {
-			writer = new BufferedWriter(new FileWriter(fitxer, true));
-			writer.write(Linia + "\n");
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

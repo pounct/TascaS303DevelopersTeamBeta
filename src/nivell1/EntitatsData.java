@@ -14,6 +14,8 @@ import entitats.Producte;
 import entitats.Venda;
 
 public class EntitatsData {
+	
+	private String pathFloristeriaDB;
 
 	private Floristeria floristeria;
 	private ArrayList<Arbre> arbres;
@@ -30,57 +32,15 @@ public class EntitatsData {
 	public EntitatsData(Floristeria floristeria) {
 
 		this.floristeria = floristeria;
+		Persistencia.setFloristeria(floristeria);
+	}
+	
+	public <T> ArrayList<T> getDataTableFromDB(T nomClass,Floristeria floristeria) {
+		ArrayList<T> datataTable=Persistencia.getData("");
+		return datataTable;
 	}
 
-	public ArrayList<Arbre> getArbres() {
-		this.arbres = Persistencia.getData("Arbre");
-		return this.arbres;
-	}
-
-	public ArrayList<Compra> getCompres() {
-		this.compres = Persistencia.getData("Compra");
-		return this.compres;
-	}
-
-	public ArrayList<Decoracio> getDecoracions() {
-		this.decoracions = Persistencia.getData("Decoracio");
-		return this.decoracions;
-	}
-
-	public ArrayList<Flor> getFlors() {
-		this.flors = Persistencia.getData("Flor");
-		return this.flors;
-	}
-
-	public ArrayList<Floristeria> getFloristeries() {
-		this.floristeries = Persistencia.getData("Floristeria");
-		return this.floristeries;
-	}
-
-	public ArrayList<Indexacio> getIndexacions() {
-		this.indexacions = Persistencia.getData("Indexacio");
-		return this.indexacions;
-	}
-
-	public ArrayList<LiniaCompra> getLiniesCompres() {
-		this.liniesCompres = Persistencia.getData("LiniaCompra");
-		return this.liniesCompres;
-	}
-
-	public ArrayList<LiniaVenda> getLiniesVendes() {
-		this.liniesVendes = Persistencia.getData("LiniaVenda");
-		return this.liniesVendes;
-	}
-
-	public ArrayList<Producte> getProductes() {
-		this.productes = Persistencia.getData("Producte");
-		return this.productes;
-	}
-
-	public ArrayList<Venda> getVendes() {
-		this.vendes = Persistencia.getData("Venda");
-		return this.vendes;
-	}
+	
 
 	public void setArbres(ArrayList<Arbre> arbres) {
 		this.arbres = arbres;
@@ -132,41 +92,52 @@ public class EntitatsData {
 		Persistencia.saveData(this.arbres, "Venda");
 	}
 
-	public void saveEntitatsData(String nomFloristeria) {
+	public void save(String nomFloristeria) {
 
 		Persistencia.saveData(this.arbres, "Arbre");
-		Persistencia.saveData(this.arbres, "Compra");
-		Persistencia.saveData(this.arbres, "Decoracio");
-		Persistencia.saveData(this.arbres, "Flor");
-		Persistencia.saveData(this.arbres, "Floristeria");
-		Persistencia.saveData(this.arbres, "Indexacio");
-		Persistencia.saveData(this.arbres, "LiniaCompra");
-		Persistencia.saveData(this.arbres, "LiniaVenda");
-		Persistencia.saveData(this.arbres, "Producte");
-		Persistencia.saveData(this.arbres, "Venda");
+		Persistencia.saveData(this.compres, "Compra");
+		Persistencia.saveData(this.decoracions, "Decoracio");
+		Persistencia.saveData(this.flors, "Flor");
+		Persistencia.saveData(this.floristeries, "Floristeria");
+		Persistencia.saveData(this.indexacions, "Indexacio");
+		Persistencia.saveData(this.liniesCompres, "LiniaCompra");
+		Persistencia.saveData(this.liniesVendes, "LiniaVenda");
+		Persistencia.saveData(this.productes, "Producte");
+		Persistencia.saveData(this.vendes, "Venda");
 
 	}
 
 	public EntitatsData loadEntitatsData(String nomFloristeria) {
-		this.arbres = getArbres();
-		this.compres = getCompres();
-		this.decoracions = getDecoracions();
-		this.flors = getFlors();
-		this.floristeries = getFloristeries();
-		this.indexacions = getIndexacions();
-		this.liniesCompres = getLiniesCompres();
-		this.liniesVendes = getLiniesVendes();
-		this.productes = getProductes();
-		this.vendes = getVendes();
+		this.arbres = Persistencia.getData("Arbre");
+		this.compres = Persistencia.getData("Compra");
+		this.decoracions = Persistencia.getData("Decoracio");
+		this.flors = Persistencia.getData("Flor");
+		this.floristeries = Persistencia.getData("Floristeria");
+		this.indexacions = Persistencia.getData("Indexacio");
+		this.liniesCompres = Persistencia.getData("LiniaCompra");
+		this.liniesVendes = Persistencia.getData("LiniaVenda");
+		this.productes = Persistencia.getData("Producte");
+		this.vendes = Persistencia.getData("Venda");
 		return this;
 	}
 
 	public Floristeria getFloristeria() {
+		pathFloristeriaDB = "data_txt\\" + floristeria.getNom() + "\\";
+		loadEntitatsData(floristeria.getNom());
 		return floristeria;
 	}
 
 	public void setFloristeria(Floristeria floristeria) {
+		
 		this.floristeria = floristeria;
+	}
+
+	public String getPathFloristeriaDB() {
+		return pathFloristeriaDB;
+	}
+
+	public void setPathFloristeriaDB(String pathFloristeriaDB) {
+		this.pathFloristeriaDB = pathFloristeriaDB;
 	}
 
 }
